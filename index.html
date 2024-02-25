@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Movie Ratings App</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Movie Ratings App</h1>
+        <form @submit.prevent="addMovie">
+            <input type="text" v-model="newMovie.name" placeholder="Movie Name" required>
+            <input type="number" v-model="newMovie.rating" placeholder="Rating (1-5)" min="1" max="5" required>
+            <select v-model="newMovie.genre" required>
+                <option value="">Select Genre</option>
+                <option value="Action">Action</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Drama">Drama</option>
+                <!-- Add other genres as needed -->
+            </select>
+            <button type="submit">Add Movie</button>
+        </form>
+        <div class="movie-card" v-for="movie in movies" :key="movie.id">
+            <div class="movie-title">{{ movie.name }}</div>
+            <div class="movie-genre">{{ movie.genre }}</div>
+            <div class="movie-rating">Rating: {{ movie.rating }}/5</div>
+        </div>
+    </div>
+
+    <!-- Include Vue.js (Vue 3) from CDN -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
