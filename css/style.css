@@ -1,58 +1,25 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+body, html {
+    margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
 }
 
-h1 {
-    color: #333;
+.container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
 }
 
-form {
-    margin-bottom: 20px;
-}
-
-input[type="text"], input[type="number"], select {
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    display: block;
+#urlInput {
+    width: 60%;
+    padding: 8px;
 }
 
 button {
-    padding: 10px 20px;
-    background-color: #005A9C;
-    color: white;
-    border: none;
-    border-radius: 5px;
+    padding: 8px 16px;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #003D73;
-}
-
-.movie-card {
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 10px;
-    padding: 20px;
-    border-radius: 5px;
-}
-
-.movie-title {
-    font-size: 20px;
-    color: #333;
-}
-
-.movie-genre {
-    font-size: 16px;
-    color: #666;
-}
-
-.movie-rating {
-    font-size: 18px;
-    color: #005A9C;
+#urlList {
+    margin-top: 20px;
 }
