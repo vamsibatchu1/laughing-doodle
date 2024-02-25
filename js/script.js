@@ -1,50 +1,64 @@
-document.addEventListener('DOMContentLoaded', function() {
-    loadUrls(); // Load stored URLs on document ready
-});
-
-document.getElementById('urlForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent form from submitting in the traditional way
-
-    // Get input values
-    const urlInput = document.getElementById('urlInput').value; // Corrected variable name here
+// Your Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyD2Ae4pHPt0jZgUv57854Ol6fFcHLQACew",
+    authDomain: "laughing-doodle-b1fb0.firebaseapp.com",
+    databaseURL: "https://laughing-doodle-b1fb0-default-rtdb.firebaseio.com",
+    projectId: "laughing-doodle-b1fb0",
+    storageBucket: "laughing-doodle-b1fb0.appspot.com",
+    messagingSenderId: "111885939145",
+    appId: "1:111885939145:web:17be249a9b23ddaffbf818",
+  };
+  
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  
+  // Reference to your database
+  const database = firebase.database();
+  
+  // Function to submit URL to Firebase
+  function submitUrl(urlData) {
+    // Generate a new unique key for each submission
+    const newUrlKey = database.ref().child('urls').push().key;
+  
+    // Write the new URL's data simultaneously in the URLs list.
+    const updates = {};
+    updates['/urls/' + newUrlKey] = urlData;
+  
+    return database.ref().update(updates);
+  }
+  
+  // Function to load URLs from Firebase
+  function loadUrls() {
+    const urlsRef = database.ref('urls');
+    urlsRef.on('value', (snapshot) => {
+      const urls = snapshot.val();
+      const urlsTableBody = document.getElementById('urlsTable').getElementsByTagName('tbody')[0];
+      urlsTableBody.innerHTML = ''; // Clear current content
+      for (const key in urls) {
+        if (urls.hasOwnProperty(key)) {
+          addUrlToTable(urls[key]);
+        }
+      }
+    });
+  }
+  
+  // Event listener for form submission
+  document.getElementById('urlForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+  
+    const urlInput = document.getElementById('urlInput').value;
     const urlType = document.getElementById('urlType').value;
-
-    // Only proceed if URL is not empty
+    const trainedDate = new Date().toISOString();
+  
     if (urlInput.trim() !== '') {
-        const trainedDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
-        const urlData = { date: trainedDate, url: urlInput, type: urlType };
-
-        // Add URL to list and table
-        addUrlToList(urlData);
+      const urlData = { date: trainedDate, url: urlInput, type: urlType };
+  
+      submitUrl(urlData);
+  
+      document.getElementById('urlInput').value = ''; // Reset the input field
     }
-});
-
-function loadUrls() {
-    // Retrieve URLs from localStorage and parse them
-    const urls = JSON.parse(localStorage.getItem('trainedUrls') || '[]');
-    urls.forEach(url => addUrlToTable(url));
-}
-
-function addUrlToList(urlData) {
-    // Retrieve existing URLs, add new one, and save back to localStorage
-    const urls = JSON.parse(localStorage.getItem('trainedUrls') || '[]');
-    urls.push(urlData);
-    localStorage.setItem('trainedUrls', JSON.stringify(urls));
-
-    // Also add to table directly
-    addUrlToTable(urlData);
-
-    // Clear input after adding
-    document.getElementById('urlInput').value = '';
-    document.getElementById('urlType').value = 'design'; // Reset to default or keep as is based on your preference
-}
-
-function addUrlToTable(urlData) {
-    const tableBody = document.getElementById('urlsTable').getElementsByTagName('tbody')[0];
-    const newRow = tableBody.insertRow(tableBody.rows.length); // Insert at the end of the table
-
-    // Fill in the row with new data
-    newRow.insertCell(0).textContent = urlData.date;
-    newRow.insertCell(1).textContent = urlData.url;
-    newRow.insertCell(2).textContent = urlData.type.charAt(0).toUpperCase() + urlData.type.slice(1); // Capitalize the first letter
-}
+  });
+  
+  // Call loadUrls on page load to display already stored URLs
+  document.addEventListener('DOMContentLoaded', loadUrls);
+  
