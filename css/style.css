@@ -10,9 +10,10 @@ body, html {
     text-align: center;
 }
 
-#urlInput {
-    width: 60%;
+#urlInput, #urlType {
+    margin: 5px 0;
     padding: 8px;
+    width: 60%;
 }
 
 button {
@@ -20,6 +21,17 @@ button {
     cursor: pointer;
 }
 
-#urlList {
+#trainedUrls {
     margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
 }

@@ -3,21 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LLM Training Interface</title>
+    <title>LLM Training Dashboard</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>LLM URL Trainer</h1>
-        <form id="urlForm">
-            <input type="url" id="urlInput" placeholder="Enter URL to train LLM" required>
-            <button type="submit">Submit URL</button>
-        </form>
-        <div id="urlList">
-            <h2>Trained URLs</h2>
-            <ul id="urls"></ul>
-        </div>
+<div class="container">
+    <h1>LLM URL Trainer</h1>
+    <form id="urlForm">
+        <input type="url" id="urlInput" placeholder="Enter URL" required>
+        <select id="urlType">
+            <option value="design">Design</option>
+            <option value="accessibility">Accessibility</option>
+            <option value="time">Time</option>
+            <!-- Add more types as needed -->
+        </select>
+        <button type="submit">Submit URL</button>
+    </form>
+    <div id="trainedUrls">
+        <h2>Trained URLs</h2>
+        <table id="urlsTable">
+            <thead>
+                <tr>
+                    <th>Date Trained</th>
+                    <th>URL</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- URLs will be listed here -->
+            </tbody>
+        </table>
     </div>
-    <script src="js/script.js"></script>
+</div>
+<script src="js/"></script>
 </body>
 </html>
